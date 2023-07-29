@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ super() }} - {{ title }}
+{% endblock %}
+
+{% block content %}
+    Выбираем куртку
+     <div class="row">
+        <div class="col-12 col-md-6 col-lg-4">
+            <p>Ветровка Marc O'Polo демисезонная, удлиненная, несъемный капюшон, карманы, размер 40, зеленый</p>
+            <img src="/static/image/marc_o_polo.jpg" class="col-12 col-md-6 img-fluid rounded-circle" alt="Наш бренд">
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <p> Куртка Helly Hansen, удлиненная, несъемный капюшон, карманы, водонепроницаемая, размер XS, голубой </p>
+            <img src="/static/image/helly_hansen.jpg" class="col-12 col-md-6 img-fluid rounded-circle" alt="Наш бренд">
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <p>Ветровка FLY демисезонная, укороченная, силуэт свободный, пояс/ремень, карманы, подкладка, размер 48, зеленый</p>
+            <img src="/static/image/fly.jpg" class="col-12 col-md-6 img-fluid rounded-circle" alt="Наш бренд">
+        </div>
+    </div>
+{% endblock %}
