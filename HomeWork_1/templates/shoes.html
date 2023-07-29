@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ super() }} - {{ title }}
+{% endblock %}
+
+{% block content %}
+    Выбираем обувь
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-4">
+            <p>Босоножки Эконика, натуральная кожа, размер 39, зеленый</p>
+             <img src="/static/image/ekonika.jpg" class="col-12 col-md-6 img-fluid rounded-circle" alt="Наш бренд">
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <p> Босоножки Tamaris, натуральная кожа, размер 38, черный</p>
+             <img src="/static/image/tamaris.jpg" class="col-12 col-md-6 img-fluid rounded-circle" alt="Наш бренд">
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <p>Кеды s.Oliver, летние, повседневные, размер 38, белый</p>
+             <img src="/static/image/s_oliver.jpg" class="col-12 col-md-6 img-fluid rounded-circle" alt="Наш бренд">
+        </div>
+    </div>
+{% endblock %}

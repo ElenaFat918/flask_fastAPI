@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ super() }} - {{ title }}
+{% endblock %}
+
+{% block content %}
+    Здесь вы можете выбрать одежду
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-4">
+            <p>Блуза DORIZORI, повседневный стиль, короткий рукав, полупрозрачная, однотонная, размер One Size, бежевый</p>
+            <img src="/static/image/dorizori.jpg" class="col-12 col-md-6 img-fluid rounded-circle" alt="Наш бренд">
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <p>Брюки Dilvin демисезонные, прямой силуэт, классический стиль, карманы, стрелки, размер 40 (46RU), мультиколор</p>
+            <img src="/static/image/dilvin.jpg" class="col-12 col-md-6 img-fluid rounded-circle" alt="Наш бренд">
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <p>Юбка-карандаш RAPOSA, миди, карманы, размер 42, серый</p>
+            <img src="/static/image/raposa.jpg" class="col-12 col-md-6 img-fluid rounded-circle" alt="Наш бренд">
+        </div>
+    </div>
+{% endblock %}
