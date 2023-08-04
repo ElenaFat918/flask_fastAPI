@@ -22,11 +22,11 @@ def set_cookie():
             'name': request.form.get('name'),
             'email': request.form.get('email')
         }
-        response = make_response(render_template('form.html', **context))
+        response = redirect(url_for('main', name=context['name']))
         response.headers['new_head'] = 'New value'
         response.set_cookie('name', context['name'])
-        # return response
-        return redirect(url_for('main', name=context['name']))
+        response.set_cookie('email', context['email'])
+        return response
     context = {'title': ' cookies'}
     return render_template('form.html', **context)
 
@@ -34,7 +34,7 @@ def set_cookie():
 @app.route('/getcookie/')
 def get_cookies():
     # получаем значение cookie
-    name, email = request.cookies.get('name', 'email')
+    name, email = request.cookies.get('name'), request.cookies.get('email')
     return f"Значение cookie: {name, email}"
 
 
