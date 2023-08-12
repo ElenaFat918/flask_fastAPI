@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Register</h1>
+<form method="POST" action="{{ url_for('register') }}">
+    {{ form.csrf_token }}
+    {% for field in form if field.name !='csrf_token' %}
+    <p>
+        {{ field.label }}<br>
+        {{ field }}
+        {% if field.errors %}
+    <ul class="alert alert-danger">
+        {% for error in field.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
+        {% endif %}
+    </p>
+    {% endfor %}
+    <p>
+        <input type="submit" value="Register">
+    </p>
+</form>
+{% endblock %}
+
+<!--В отличии от шаблона login.html мы не указываем поля явно.
+После стандартного вывода csrf токена создаём цикл для по всем полям формы за исключением токена.
+Для каждого поля выводится метка и окно поле ввода.
+Отдельно проверяем наличие ошибок ввода
+и если они есть,в цикле выводим все ошибки для каждого из полей.
+Таким образом мы динамически формируем страницу регистрации.
+А в случае неверного ввода данных пользователем,
+сразу сообщаем ему об ошибках-->
