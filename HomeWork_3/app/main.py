@@ -6,13 +6,15 @@
 """
 
 from flask import Flask, redirect, render_template, request, url_for, make_response
+
 from app.models import db, User
-from flask_wtf import FlaskForm
-from app.forms import RegistrationForm
+from app.forms import RegisterForm
 from flask_wtf.csrf import CSRFProtect
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'mysecretkey'
+
+app.config['SECRET_KEY'] = b'ea678bc6bbd140100d66503aa6ac1242c6eb0e8d4c38b85c7ea9a9d2a8e60451'
+
 csrf = CSRFProtect(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///users.db'
 db.init_app(app)
@@ -24,28 +26,17 @@ def init_db():
     print('OK')
 
 
-# @app.route('/users/')
-# def all_users():
-#     users = User.query.all()
-#     context = {'users': users}
-#     return render_template('users.html', **context)
-
-
 # @app.route('/', methods=['GET', 'POST'])
 # def set_cookie():
 #     if request.method == 'POST':
 #         context = {
 #             'name': request.form.get('name'),
-#             'surname': request.form.get('surname'),
-#             'email': request.form.get('email'),
-#             'password': request.form.get('password'),
+#             'email': request.form.get('email')
 #         }
 #         response = redirect(url_for('main', name=context['name']))
 #         response.headers['new_head'] = 'New value'
 #         response.set_cookie('name', context['name'])
-#         response.set_cookie('surname', context['surname'])
 #         response.set_cookie('email', context['email'])
-#         response.set_cookie('password', context['password'])
 #         return response
 #     context = {'title': ' cookies'}
 #     return render_template('form.html', **context)
@@ -53,27 +44,28 @@ def init_db():
 
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
-    form = RegistrationForm()
+    form = RegisterForm()
     if request.method == 'POST' and form.validate():
         name = form.name.data
         surname = form.surname.data
         email = form.email.data
         password = form.password.data
+
+        # получить user из БД по name и email
+        # можно через filter-by (только AND ???? )
         existing_user = User.query.filter(
-            (User.name == name) | (User.surname == surname) | (User.email == email)
-        ).first()
+            (User.name == name) | (User.surname == surname) | (User.email == email)).first()
+
+        # если user существует
         if existing_user:
             error_msg = 'Username or email already exists.'
             form.name.errors.append(error_msg)
             return render_template('register.html', form=form)
-        new_user = User(name=name, email=email, password=password)
-        db.session.add(new_user)
+
+        user = User(name=name, surname=surname, email=email, password=password)
+        db.session.add(user)
         db.session.commit()
-
-        # Выводим сообщение об успешной регистрации
-        success_msg = 'Registration successful!'
-        return success_msg
-
+        return 'Registered success!'
     return render_template('register.html', form=form)
 
 
@@ -93,10 +85,9 @@ def logout():
     return redirect(url_for('set_cookie'))
 
 
-@app.route('/main')
+@app.route('/')
 def main():
     context = {'title': 'Основная'}
-
     return render_template('main.html', **context)
 
 
