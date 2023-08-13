@@ -21,7 +21,7 @@ csrf = CSRFProtect(app)
 
 @app.route('/')
 def index():
-    return 'Hi!'
+    return render_template('base.html')
 
 
 @app.cli.command("init-db")
@@ -46,14 +46,14 @@ def register():
 
         # если user существует
         if existing_user:
-            error_msg = 'Username or email already exists.'
+            error_msg = 'Username or surname or email уже существует.'
             form.name.errors.append(error_msg)
             return render_template('register.html', form=form)
 
         user = User(name=name, surname=surname, email=email, password=password)
         db.session.add(user)
         db.session.commit()
-        return 'Registered success!'
+        return 'Регистрация успешно пройдена!'
     return render_template('register.html', form=form)
 
 
