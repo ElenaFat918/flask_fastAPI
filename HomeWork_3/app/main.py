@@ -7,8 +7,8 @@
 
 from flask import Flask, redirect, render_template, request, url_for, make_response
 
-from app.models import db, User
-from app.forms import RegisterForm
+from models import db, User
+from forms import RegisterForm
 from flask_wtf.csrf import CSRFProtect
 
 app = Flask(__name__)
